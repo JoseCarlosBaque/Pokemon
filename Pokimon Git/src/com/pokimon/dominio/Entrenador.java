@@ -80,7 +80,7 @@ public class Entrenador {
     public void inicio_juego(ArrayList<Entrenador> entrenador, ArrayList<Pokemon> pokemons, ArrayList<Objeto> bolsa) throws InterruptedException { //Excepcion que tira el Tread.sleep
         try {
             int starter;
-            int opcion, opcion2 = 0;
+            int opcion;
             int item, cantidad, precio, continuar = 0;
             boolean b_starter = false;
             while (b_starter == false) {
@@ -111,6 +111,7 @@ public class Entrenador {
                 }
             }
             do {
+                int opcion2 = 0;
                 System.out.println("Que quieres hacer");
                 System.out.println("1.Explorar 2.Centro Pokemon 3.Mostrar equipo 4.Fin");
                 opcion = reader.nextInt();
@@ -278,6 +279,9 @@ public class Entrenador {
                                         escapar = true;
                                         rellenar_equipo(pokemons.get(num_pk));
                                         System.out.println("Has capturado al pokemon");
+                                        int dinero = (int) (Math.random() * 100);
+                                        this.setDinero(this.getDinero() + dinero);
+                                        System.out.println("Has ganado: " + dinero + " Pokemonedas");
                                         break;
                                     }
                                     capturar = false;
@@ -307,7 +311,7 @@ public class Entrenador {
                                     System.out.println("Te quedan: " + bolsa.get(objeto).getCantidad() + " Pociones");
                                 }
                                 cont++;
-                            }else if (bolsa.get(objeto).getCantidad() <= 0) {
+                            } else if (bolsa.get(objeto).getCantidad() <= 0) {
                                 System.out.println("No tienes pociones");
                             }
                         }
@@ -363,7 +367,7 @@ public class Entrenador {
             System.out.println("Has debilitado a: " + pokemons.get(num_pk).getNombre());
             int dinero = (int) (Math.random() * 200);
             this.setDinero(this.getDinero() + dinero);
-            System.out.println("Has ganado: " + dinero);
+            System.out.println("Has ganado: " + dinero + " Pokemonedas");
             escapar = true;
         }
     }
@@ -528,10 +532,22 @@ public class Entrenador {
                     num_pk = y;
                     cont++;
                     cont_muertes++;
+                    if (cont_muertes == entrenador.get(x).equipo.size()) {
+                        System.out.println("Has debilitado a: " + entrenador.get(x).equipo.get(num_pk).getNombre());
+                        System.out.println("Has derrotado al entrenador: " + entrenador.get(x).getNombre());
+                        int dinero = (int) (Math.random() * 200);
+                        this.setDinero(this.getDinero() + dinero);
+                        System.out.println("Has ganado: " + dinero + " Pokemonedas");
+                    }
                 } else {
-                    System.out.println("Has debilitado a: " + entrenador.get(x).equipo.get(num_pk).getNombre());
                     cont_muertes++;
-                    break;
+                    if (cont_muertes == entrenador.get(x).equipo.size()) {
+                        System.out.println("Has debilitado a: " + entrenador.get(x).equipo.get(num_pk).getNombre());
+                        System.out.println("Has derrotado al entrenador: " + entrenador.get(x).getNombre());
+                        int dinero = (int) (Math.random() * 200);
+                        this.setDinero(this.getDinero() + dinero);
+                        System.out.println("Has ganado: " + dinero + " Pokemonedas");
+                    }
                 }
             }
         }
