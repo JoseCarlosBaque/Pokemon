@@ -69,6 +69,14 @@ public class Entrenador {
         this.apellido = apellido;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
     public float getDinero() {
         return dinero;
     }

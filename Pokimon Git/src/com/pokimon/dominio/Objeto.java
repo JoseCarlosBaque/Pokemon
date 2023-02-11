@@ -52,4 +52,9 @@ public class Objeto {
     public void setPrecio(int precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return "Objeto{" + "id = " + id + ", nombe = " + nombe + ", cantidad = " + cantidad + ", precio = " + precio + '}';
+    }
 }
