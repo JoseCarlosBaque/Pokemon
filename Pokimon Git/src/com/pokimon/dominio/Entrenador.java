@@ -20,6 +20,7 @@ public class Entrenador {
     private float dinero;
     Scanner reader = new Scanner(System.in);
     private ArrayList<Pokemon> equipo = new ArrayList<Pokemon>();//Equipo del entrenador
+    private ArrayList<Pokemon> cajas = new ArrayList<Pokemon>();//Equipo del entrenador
     private ArrayList<Objeto> bolsa = new ArrayList<Objeto>();//Objetos del entrenador
 
     public Entrenador() {
@@ -182,6 +183,39 @@ public class Entrenador {
                                     }
                                     break;
                                 case 3://Cambiar pokemon de la pokedex al equipo usable en combate
+                                    if (this.equipo.size() < 6) {
+                                        System.out.println("No tienes suficientes Pokemons");
+                                    } else if (this.equipo.size() >= 6) {
+                                        int y, z = 0;
+                                        while (z != 2) {
+                                            System.out.println("Dime que quieres hacer");
+                                            System.out.println("1.Mover Pokemon 2.Salir");
+                                            z = reader.nextInt();
+                                            switch (z) {
+                                                case 1:
+                                                    System.out.println("Que Pokemon quieres cambiar de tu equipo");
+                                                    for (int i = 0; i < equipo.size(); i++) {
+                                                        System.out.println(i + "." + equipo.get(i).getNombre());
+                                                    }
+                                                    y = reader.nextInt();
+                                                    cajas.add(equipo.get(y));
+                                                    equipo.remove(y);
+                                                    System.out.println("Se ha añadido a la caja");
+                                                    System.out.println("Que pokemon quieres sacar de la caja");
+                                                    for (int i = 0; i < cajas.size(); i++) {
+                                                        System.out.println(i + "." + cajas.get(i).getNombre());
+                                                    }
+                                                    y = reader.nextInt();
+                                                    equipo.add(cajas.get(y));
+                                                    cajas.remove(y);
+                                                    break;
+                                                case 2:
+                                                    break;
+                                                default:
+                                                    System.out.println("Selecciona 1 o 2 bobo");
+                                            }
+                                        }
+                                    }
                                     break;
                                 case 4:
                                     System.out.println("Abandonando Centro Pokemon");
@@ -285,11 +319,21 @@ public class Entrenador {
                                     }
                                     if (capturar == true) {
                                         escapar = true;
-                                        rellenar_equipo(pokemons.get(num_pk));
-                                        System.out.println("Has capturado al pokemon");
-                                        int dinero = (int) (Math.random() * 100);
-                                        this.setDinero(this.getDinero() + dinero);
-                                        System.out.println("Has ganado: " + dinero + " Pokemonedas");
+                                        if (equipo.size() < 6) {
+                                            rellenar_equipo(pokemons.get(num_pk));
+                                            System.out.println("Has capturado al pokemon");
+                                            int dinero = (int) (Math.random() * 100);
+                                            this.setDinero(this.getDinero() + dinero);
+                                            System.out.println("Has ganado: " + dinero + " Pokemonedas");
+                                        } else if(equipo.size() >= 6) {
+                                            cajas.add(pokemons.get(num_pk));
+                                            System.out.println("Has capturado al pokemon");
+                                            System.out.println("Equipo lleno");
+                                            System.out.println("Se ha ido a la caja");
+                                            int dinero = (int) (Math.random() * 100);
+                                            this.setDinero(this.getDinero() + dinero);
+                                            System.out.println("Has ganado: " + dinero + " Pokemonedas");
+                                        }
                                         break;
                                     }
                                     capturar = false;
